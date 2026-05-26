@@ -11,7 +11,7 @@ header {
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 2vh 2.5vw;
     width: 100%;
 }
 
