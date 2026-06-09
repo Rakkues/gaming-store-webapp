@@ -1,0 +1,361 @@
+/* ============================================================
+   Receipt / Thank You Page Styles
+   CIT6224 Web Application Development | Member 3 (Cashier)
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+    line-height: 1.5;
+}
+
+/* ---- Page Layout ---- */
+.receipt-page {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 2rem;
+}
+
+/* ---- Receipt Card ---- */
+.receipt-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* ---- Green Checkmark ---- */
+.success-icon-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.success-checkmark {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #28a745;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: checkmarkPop 0.5s ease-out;
+    box-shadow: 0 4px 14px rgba(40, 167, 69, 0.3);
+}
+
+.checkmark-svg {
+    width: 36px;
+    height: 36px;
+}
+
+.checkmark-svg polyline {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: checkmarkDraw 0.4s ease-out 0.3s forwards;
+}
+
+@keyframes checkmarkPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes checkmarkDraw {
+    to { stroke-dashoffset: 0; }
+}
+
+/* ---- Heading ---- */
+.receipt-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.receipt-heading h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+}
+
+.receipt-heading p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ---- Key Info Grid (Transaction ID, Order Number, Tracking) ---- */
+.order-key-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.info-block {
+    padding: 0.85rem 0.75rem;
+    background: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    margin: 0 0 0.3rem;
+    font-weight: 600;
+}
+
+.info-value {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin: 0;
+    word-break: break-all;
+    color: #1a1a1a;
+}
+
+/* ---- Section Divider ---- */
+.receipt-divider {
+    height: 1px;
+    background: #eee;
+    margin: 1.5rem 0;
+    border: none;
+}
+
+/* ---- Order Items ---- */
+.receipt-section {
+    margin-bottom: 1.5rem;
+}
+
+.receipt-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.receipt-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.receipt-item:last-child {
+    border-bottom: none;
+}
+
+.receipt-item-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background: #fafafa;
+    flex-shrink: 0;
+}
+
+.receipt-item-name {
+    flex: 1;
+    font-size: 0.88rem;
+    font-weight: 500;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.receipt-item-qty {
+    color: #888;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    margin: 0 0.5rem;
+}
+
+.receipt-item-price {
+    font-weight: 600;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+    min-width: 70px;
+    text-align: right;
+}
+
+/* ---- Delivery & Payment Info ---- */
+.receipt-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.receipt-info-block h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #888;
+    margin: 0 0 0.4rem;
+}
+
+.receipt-info-block p {
+    margin: 0.2rem 0;
+    font-size: 0.88rem;
+    color: #444;
+}
+
+/* ---- Totals ---- */
+.receipt-totals {
+    margin-top: 0.5rem;
+}
+
+.receipt-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.45rem;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.receipt-total-row.final {
+    border-top: 2px solid #1a1a1a;
+    padding-top: 0.65rem;
+    margin-top: 0.65rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+}
+
+.receipt-total-row .free-label {
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* ---- Action Buttons ---- */
+.receipt-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #333;
+}
+
+.btn-primary:visited {
+    color: #ffffff;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    background: #ffffff;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: #f5f5f5;
+}
+
+.btn-outline:visited {
+    color: #1a1a1a;
+}
+
+/* ---- Error State (no order) ---- */
+.receipt-error {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.receipt-error p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 1.5rem;
+}
+
+/* ---- Loading ---- */
+.receipt-loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #999;
+}
+
+.receipt-loading .spinner {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 3px solid #e5e5e5;
+    border-top-color: #1a1a1a;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-bottom: 0.75rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .receipt-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .order-key-info {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+    }
+}
