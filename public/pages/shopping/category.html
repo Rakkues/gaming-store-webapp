@@ -2,8 +2,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/css/header.css" />
-        <link rel="stylesheet" href="/css/category.css" />
+        <link rel="stylesheet" href="../../css/header.css" />
+        <link rel="stylesheet" href="../../css/category.css" />
         <title>Category</title>
     </head>
     <body>
@@ -11,13 +11,29 @@
             <div class="header-top">
                 <div class="store-logo-container">
                     <a href="#home">
-                        <img src="/assets/store-logo.png" alt="store logo" />
+                        <img
+                            src="../../assets/store-logo.png"
+                            alt="store logo"
+                        />
                     </a>
                 </div>
                 <input type="text" class="search-bar" placeholder="Search" />
                 <div class="login-cart-container">
-                    <button onclick="window.location.href='/pages/auth/login.html'">Login</button>
-                    <button onclick="window.location.href='/pages/shopping/cart.html'">Cart</button>
+                    <button
+                        onclick="
+                            window.location.href = '../../pages/auth/login.html'
+                        "
+                    >
+                        Login
+                    </button>
+                    <button
+                        onclick="
+                            window.location.href =
+                                '../../pages/shopping/cart.html'
+                        "
+                    >
+                        Cart
+                    </button>
                 </div>
             </div>
             <div class="header-bottom">
@@ -45,7 +61,7 @@
             <div class="product-container">
                 <div class="product-img-container">
                     <img
-                        src="/assets/product-images/product-1.webp"
+                        src="../../assets/product-images/product-1.webp"
                         alt="product image"
                         class="product-img"
                     />
