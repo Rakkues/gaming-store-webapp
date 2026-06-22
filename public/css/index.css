@@ -1,6 +1,8 @@
 .featured-banner-container {
   height: 300px;
   width: 100%;
+  padding: 1.5rem;
+  overflow: hidden;
 }
 
 .featured-banner-container img {
