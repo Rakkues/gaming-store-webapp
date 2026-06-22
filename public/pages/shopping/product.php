@@ -41,16 +41,16 @@ if (isset($_GET['id'])) {
     <header>
       <div class="header-top">
         <div class="store-logo-container">
-          <a href="https://localhost/gaming-store-webapp/public/">
+          <a href="/gaming-store-webapp/public">
             <img src="../../assets/store-logo.png" alt="store logo" />
           </a>
         </div>
         <input type="text" class="search-bar" placeholder="Search" />
         <div class="login-cart-container">
-          <button onclick="window.location.href = '/pages/auth/login.html'">
+          <button onclick="window.location.href = '/gaming-store-webapp/public/pages/auth/login.php'">
             Login
           </button>
-          <button onclick="window.location.href = '/pages/shopping/cart.html'">
+          <button onclick="window.location.href = '/gaming-store-webapp/public/pages/shopping/cart.html'">
             Cart
           </button>
         </div>
