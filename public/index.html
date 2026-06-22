@@ -1,56 +1,73 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home</title>
-        <link rel="stylesheet" href="./css/header.css" />
-        <link rel="stylesheet" href="./css/index.css" />
-        <script src="./js/index.js" defer></script>
-    </head>
-    <body onload="loadContent()">
-        <header>
-            <div class="header-top">
-                <div class="store-logo-container">
-                    <a href="#home">
-                        <img src="./assets/store-logo.png" alt="store logo" />
-                    </a>
-                </div>
-                <input type="text" class="search-bar" placeholder="Search" />
-                <div class="login-cart-container">
-                    <button
-                        onclick="
-                            window.location.href = './pages/auth/login.html'
-                        "
-                    >
-                        Login
-                    </button>
-                    <button
-                        onclick="
-                            window.location.href = './pages/shopping/cart.html'
-                        "
-                    >
-                        Cart
-                    </button>
-                </div>
-            </div>
-            <div class="header-bottom">
-                <nav class="navbar">
-                    <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Mouse</a></li>
-                        <li><a href="">Keyboard</a></li>
-                        <li><a href="">Audio</a></li>
-                        <li><a href="">Collectibles</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <div class="featured-banner-container">
-            <img
-                src="./assets/product-images/product-1.webp"
-                alt="Featured Product Banner"
-                class="featured-product-banner"
-            />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pliant:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./js/index.js" defer></script>
+  </head>
+  <body onload="loadContent()">
+    <header>
+      <div class="header-top">
+        <div class="store-logo-container">
+          <a href="https://localhost/gaming-store-webapp/public/">
+            <img src="./assets/store-logo.png" alt="store logo" />
+          </a>
         </div>
-    </body>
+        <input type="text" class="search-bar" placeholder="Search" />
+        <div class="login-cart-container">
+          <button onclick="window.location.href = './pages/auth/login.php'">
+            Login
+          </button>
+          <button onclick="window.location.href = './pages/shopping/cart.html'">
+            Cart
+          </button>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <nav class="navbar">
+          <ul>
+            <li>
+              <a href="https://localhost/gaming-store-webapp/public/">Home</a>
+            </li>
+            <li>
+              <a href="/public/pages/shopping/category.php?category=mouse"
+                >Mouse</a
+              >
+            </li>
+            <li>
+              <a href="/public/pages/shopping/category.php?category=keyboard"
+                >Keyboard</a
+              >
+            </li>
+            <li>
+              <a href="/public/pages/shopping/category.php?category=audio"
+                >Audio</a
+              >
+            </li>
+            <li>
+              <a
+                href="/public/pages/shopping/category.php?category=collectibles"
+                >Collectibles</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="featured-banner-container">
+      <img
+        src="./assets/product-images/product-1.webp"
+        alt="Featured Product Banner"
+        class="featured-product-banner"
+      />
+    </div>
+  </body>
 </html>
