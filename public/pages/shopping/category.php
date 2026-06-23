@@ -3,7 +3,8 @@
 require_once __DIR__ . '/../../../src/api/fetch_products.php';
 
 $category = $_GET["category"] ?? "";
-$products = fetchProducts($category);
+$sortStrategy = $_GET["sort"] ?? "default";
+$products = fetchProducts($category, $sortStrategy);
 
 ?>
 
@@ -13,7 +14,8 @@ $products = fetchProducts($category);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/category.css" />
-    <title>Category</title>
+    <title>Gaming Store - <?= ucfirst($category) ?></title>
+    <script src="../../js/category.js" defer></script>
   </head>
   <body>
     <header>
@@ -53,24 +55,28 @@ $products = fetchProducts($category);
       <h1><?= ucfirst($category) ?></h1>
       <div class="sort-choice-container">
         <p>Sort by:</p>
-        <select name="sort-by" id="sort-by">
-          <option value="newly-added">Newly Added</option>
+        <select name="sort-by" id="sort-by" onchange="changeSort(this.value)">
+          <option value="default" <?= ($sortStrategy === 'default') ? 'selected' : ''; ?>>Default</option>
+          <option value="newly-added" <?= ($sortStrategy === 'newly-added') ? 'selected' : ''; ?>>Newly Added</option>
+          <option value="alphabetical" <?= ($sortStrategy === 'alphabetical') ? 'selected' : ''; ?>>Alphabetical A-Z</option>
         </select>
       </div>
     </div>
     <div class="product-list-container">
       <?php foreach ($products as $product) : ?>
-        <div class="product-container">
-          <div class="product-img-container">
-            <img
-              src="../../<?= $product['image_path'] ?>"
-              alt="product image"
-              class="product-img"
-            />
+      <div class="item">
+          <div class="item-img-container">
+              <img
+                  src="/gaming-store-webapp/public/<?= $product['image_path'] ?>"
+                  alt=""
+                  class="item-img"
+              />
           </div>
-          <h3 class="product-name"><?= $product['name'] ?></h3>
-          <p class="product-price">RM<?= $product['price'] ?></p>
-        </div>
+          <div class="item-description">
+            <a href="/gaming-store-webapp/public/pages/shopping/product.php?id=<?= $product['id'] ?>"><h3 class="item-name"><?= $product['name'] ?></h3></a>
+            <p class="item-price">RM<?= $product['price'] ?></p>
+          </div>
+      </div>
       <?php endforeach; ?>
     </div>
   </body>
