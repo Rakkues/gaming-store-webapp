@@ -29,12 +29,12 @@ function loadContent() {
 }
 
 async function loadProducts() {
-  const response = await fetch(
-    "http://localhost/gaming-store-webapp/public/api/fetch_products.php",
-  );
+  const response = await fetch("/gaming-store-webapp/src/api/api_products.php");
   const result = await response.json();
 
-  for (const data of result.data) {
+  console.log(result);
+
+  for (const data of result) {
     const itemList = document.querySelector(
       `#${data.category.toLowerCase()}-list`,
     );
@@ -48,8 +48,10 @@ async function loadProducts() {
                 class="item-img"
             />
         </div>
-        <h3 class="item-name">${data.name}</h3>
-        <p class="item-price">RM${data.price}</p>
+        <div class="item-description">
+          <a href="pages/shopping/product.php?id=${data.id}"><h3 class="item-name">${data.name}</h3></a>
+          <p class="item-price">RM${data.price}</p>
+        </div>
     </div>
     `;
   }
