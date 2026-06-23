@@ -10,10 +10,10 @@
 // ============================================================
 // Configuration
 // ============================================================
-const API_BASE = '/api';
+const API_BASE = '../../api';
 
 const SHIPPING_FEES = {
-    ninjavan:    5.90,
+    ninjavan: 5.90,
     spx_express: 3.90,
     jnt_express: 6.90
 };
@@ -147,7 +147,7 @@ function getSelectedShippingFee() {
 function updateShippingAndTotal() {
     var fee = getSelectedShippingFee();
     var shippingEl = document.getElementById('checkout-shipping');
-    var totalEl    = document.getElementById('checkout-total');
+    var totalEl = document.getElementById('checkout-total');
 
     if (fee === null) {
         // No shipping method selected yet
@@ -165,13 +165,13 @@ function updateShippingAndTotal() {
 function updateShippingPriceLabels() {
     // If free shipping applies, update the radio labels
     if (currentSubtotal >= 150) {
-        document.getElementById('price-spx').innerHTML      = '<span class="free">FREE</span>';
-        document.getElementById('price-ninjavan').innerHTML  = '<span class="free">FREE</span>';
-        document.getElementById('price-jnt').innerHTML       = '<span class="free">FREE</span>';
+        document.getElementById('price-spx').innerHTML = '<span class="free">FREE</span>';
+        document.getElementById('price-ninjavan').innerHTML = '<span class="free">FREE</span>';
+        document.getElementById('price-jnt').innerHTML = '<span class="free">FREE</span>';
     } else {
-        document.getElementById('price-spx').textContent     = 'RM 3.90';
+        document.getElementById('price-spx').textContent = 'RM 3.90';
         document.getElementById('price-ninjavan').textContent = 'RM 5.90';
-        document.getElementById('price-jnt').textContent     = 'RM 6.90';
+        document.getElementById('price-jnt').textContent = 'RM 6.90';
     }
 }
 
@@ -393,20 +393,20 @@ async function handleSubmit(e) {
 
     // ---- Prepare form data ----
     var formData = new FormData();
-    formData.append('email',           document.getElementById('email').value.trim());
-    formData.append('first_name',      document.getElementById('first_name').value.trim());
-    formData.append('last_name',       document.getElementById('last_name').value.trim());
-    formData.append('address',         document.getElementById('address').value.trim());
-    formData.append('address2',        document.getElementById('address2').value.trim());
-    formData.append('postcode',        document.getElementById('postcode').value.trim());
-    formData.append('city',            document.getElementById('city').value.trim());
-    formData.append('state',           document.getElementById('state').value);
-    formData.append('phone',           document.getElementById('phone').value.trim());
+    formData.append('email', document.getElementById('email').value.trim());
+    formData.append('first_name', document.getElementById('first_name').value.trim());
+    formData.append('last_name', document.getElementById('last_name').value.trim());
+    formData.append('address', document.getElementById('address').value.trim());
+    formData.append('address2', document.getElementById('address2').value.trim());
+    formData.append('postcode', document.getElementById('postcode').value.trim());
+    formData.append('city', document.getElementById('city').value.trim());
+    formData.append('state', document.getElementById('state').value);
+    formData.append('phone', document.getElementById('phone').value.trim());
     formData.append('shipping_method', document.querySelector('input[name="shipping_method"]:checked').value);
-    formData.append('payment_method',  document.querySelector('input[name="payment_method"]:checked').value);
+    formData.append('payment_method', document.querySelector('input[name="payment_method"]:checked').value);
 
     // ---- Disable button & show loading ----
-    var payBtn  = document.getElementById('pay-btn');
+    var payBtn = document.getElementById('pay-btn');
     var loading = document.getElementById('checkout-loading');
 
     payBtn.disabled = true;

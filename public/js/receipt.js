@@ -10,7 +10,7 @@
 // ============================================================
 // Configuration
 // ============================================================
-const API_BASE = '/api';
+const API_BASE = '../../api';
 
 // ============================================================
 // DOM Ready
@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
 // ============================================================
 async function loadReceipt() {
     var loadingEl = document.getElementById('receipt-loading');
-    var cardEl    = document.getElementById('receipt-card');
+    var cardEl = document.getElementById('receipt-card');
 
     loadingEl.style.display = 'block';
-    cardEl.style.display    = 'none';
+    cardEl.style.display = 'none';
 
     try {
         var response = await fetch(API_BASE + '/receipt_get.php', {
@@ -69,8 +69,8 @@ function renderReceipt(data) {
 
     // ---- Key Info ----
     document.getElementById('transaction-id').textContent = order.transaction_id || '—';
-    document.getElementById('order-number').textContent   = order.order_number   || '—';
-    document.getElementById('tracking-id').textContent    = order.tracking_id    || '—';
+    document.getElementById('order-number').textContent = order.order_number || '—';
+    document.getElementById('tracking-id').textContent = order.tracking_id || '—';
 
     // ---- Order Items ----
     var itemsContainer = document.getElementById('receipt-items-list');
@@ -93,15 +93,15 @@ function renderReceipt(data) {
     }
 
     // ---- Delivery Info ----
-    document.getElementById('delivery-name').textContent    = order.first_name + ' ' + order.last_name;
+    document.getElementById('delivery-name').textContent = order.first_name + ' ' + order.last_name;
     document.getElementById('delivery-address').textContent = order.address + (order.address2 ? ', ' + order.address2 : '');
-    document.getElementById('delivery-city').textContent    = order.postcode + ' ' + order.city + ', ' + order.state;
+    document.getElementById('delivery-city').textContent = order.postcode + ' ' + order.city + ', ' + order.state;
     document.getElementById('delivery-country').textContent = order.country;
-    document.getElementById('delivery-phone').textContent   = order.phone;
+    document.getElementById('delivery-phone').textContent = order.phone;
 
     // ---- Shipping & Payment ----
     document.getElementById('shipping-method-name').textContent = order.shipping_method_name || order.shipping_method;
-    document.getElementById('payment-method-name').textContent  = order.payment_method_name  || order.payment_method;
+    document.getElementById('payment-method-name').textContent = order.payment_method_name || order.payment_method;
 
     // Order status
     var statusEl = document.getElementById('order-status');
