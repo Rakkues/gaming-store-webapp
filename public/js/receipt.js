@@ -45,7 +45,7 @@ async function loadReceipt() {
             // No order found — show error message
             cardEl.innerHTML = '<div class="receipt-error">' +
                 '<p>' + escapeHTML(data.message || 'No order found. Please complete a purchase first.') + '</p>' +
-                '<a href="/index.html" class="btn-primary">Go to Home</a>' +
+                '<a href="../../index.html" class="btn-primary">Go to Home</a>' +
                 '</div>';
             cardEl.style.display = 'block';
         }
@@ -54,7 +54,7 @@ async function loadReceipt() {
         loadingEl.style.display = 'none';
         cardEl.innerHTML = '<div class="receipt-error">' +
             '<p>Unable to load your receipt. Please try again later.</p>' +
-            '<a href="/index.html" class="btn-primary">Go to Home</a>' +
+            '<a href="../../index.html" class="btn-primary">Go to Home</a>' +
             '</div>';
         cardEl.style.display = 'block';
     }
@@ -81,10 +81,10 @@ function renderReceipt(data) {
         var el = document.createElement('div');
         el.className = 'receipt-item';
 
-        var imgPath = item.image_path || '/assets/product-images/product-1.webp';
+        var imgPath = item.image_path || 'assets/product-images/product-1.webp';
 
         el.innerHTML =
-            '<img src="' + escapeHTML(imgPath) + '" alt="' + escapeHTML(item.product_name) + '" class="receipt-item-img" />' +
+            '<img src="../../' + escapeHTML(imgPath) + '" alt="' + escapeHTML(item.product_name) + '" class="receipt-item-img" />' +
             '<span class="receipt-item-name">' + escapeHTML(item.product_name) + '</span>' +
             '<span class="receipt-item-qty">×' + item.quantity + '</span>' +
             '<span class="receipt-item-price">RM ' + item.line_total + '</span>';

@@ -70,7 +70,7 @@ function renderCart(data) {
 
         // Build inner HTML
         var html = '';
-        html += '<img src="' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="cart-item-image" />';
+        html += '<img src="../../' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="cart-item-image" />';
         html += '<div class="cart-item-details">';
         html += '  <p class="cart-item-name">' + escapeHTML(item.name) + '</p>';
         html += '  <p class="cart-item-price">RM ' + item.price + '</p>';

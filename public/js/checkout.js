@@ -45,7 +45,7 @@ async function loadOrderSummary() {
 
         if (!data.success || data.items.length === 0) {
             alert('Your cart is empty. Redirecting to the shop...');
-            window.location.href = '/index.html';
+            window.location.href = '../../index.html';
             return;
         }
 
@@ -67,7 +67,7 @@ function renderOrderSummary(data) {
 
         var html = '';
         html += '<div class="summary-item-img-wrap">';
-        html += '  <img src="' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="summary-item-img" />';
+        html += '  <img src="../../' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="summary-item-img" />';
         html += '  <span class="summary-item-qty-badge">' + item.quantity + '</span>';
         html += '</div>';
         html += '<div class="summary-item-info">';
@@ -423,7 +423,7 @@ async function handleSubmit(e) {
 
         if (data.success) {
             // Redirect to receipt page
-            window.location.href = data.redirect || '/pages/shopping/receipt.html';
+            window.location.href = data.redirect ? ('../../' + data.redirect.replace(/^\/+/, '')) : 'receipt.html';
         } else if (data.errors) {
             // Server-side validation errors
             loading.classList.remove('active');
