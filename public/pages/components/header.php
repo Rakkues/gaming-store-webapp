@@ -11,14 +11,14 @@
     </form>
     <div class="login-cart-container">
       <?php if ($isLoggedIn) : ?>
-        <button onclick="window.location.href = './pages/shopping/cart.html'">
+        <button onclick="window.location.href = '/gaming-store-webapp/public/pages/shopping/cart.php'">
           Cart
         </button>
-        <button onclick="window.location.href = './pages/auth/logout.php'">
+        <button onclick="window.location.href = '/gaming-store-webapp/public/pages/auth/logout.php'">
           Logout
         </button>
       <?php else : ?>
-        <button onclick="window.location.href = './pages/auth/login.php'">
+        <button onclick="window.location.href = '/gaming-store-webapp/public/pages/auth/login.php'">
           Login
         </button>
       <?php endif; ?>
