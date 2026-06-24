@@ -35,3 +35,23 @@ function fetchProducts($category, $sortBy = 'default'): array
         return [];
     }
 }
+
+function searchProducts($searchTerm)
+{
+    try {
+        $conn = getDBConnection();
+
+        $query = "SELECT * FROM products WHERE name LIKE :search";
+        $stmt = $conn->prepare($query);
+
+        $likeTerm = "%" . $searchTerm . "%";
+        $stmt->bindValue(':search', $likeTerm, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $products;
+    } catch (PDOException $exception) {
+        error_log("Database error in searchProducts: " . $exception->getMessage());
+        return [];
+    }
+}
