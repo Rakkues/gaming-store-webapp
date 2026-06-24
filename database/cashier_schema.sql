@@ -30,7 +30,7 @@ ON DUPLICATE KEY UPDATE
 -- ============================================================
 CREATE TABLE IF NOT EXISTS products (
     id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(255) NOT NULL,
+    name        VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     price       DECIMAL(10, 2) NOT NULL,
     stock       INT UNSIGNED NOT NULL DEFAULT 0,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS order_items (
 -- ============================================================
 -- Sample Products (Gaming Peripherals & Merchandise)
 -- ============================================================
-INSERT INTO products (name, description, price, stock, category, image_path) VALUES
+INSERT IGNORE INTO products (name, description, price, stock, category, image_path) VALUES
 ('Logitech G Pro X2 Superstrike','PRO X2 SUPERSTRIKE is a breakthrough in ultra-low click-latency technology. The revolutionary Haptic Inductive Trigger System (HITS) accelerates click speed with tunable actuation and rapid trigger reset points for both main mouse keys.',                                 349.00, 30, 'mouse',        '/assets/product-images/product-1.webp'),
 ('Razer DeathAdder V4 Pro',   'Become the deadliest version of yourself with the Razer DeathAdder V4 Pro—an ultra-lightweight wireless ergonomic mouse that’s the perfect esports specimen.',                    299.00, 50, 'mouse',        '/assets/product-images/product-2.webp'),
 ('Razer BlackWidow V4 Pro',   'Mechanical gaming keyboard with Razer Green switches, RGB & macro keys.',         599.00, 25, 'keyboard',     '/assets/product-images/product-3.webp'),

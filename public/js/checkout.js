@@ -10,10 +10,10 @@
 // ============================================================
 // Configuration
 // ============================================================
-const API_BASE = '/api';
+const API_BASE = '../../api';
 
 const SHIPPING_FEES = {
-    ninjavan:    5.90,
+    ninjavan: 5.90,
     spx_express: 3.90,
     jnt_express: 6.90
 };
@@ -45,7 +45,7 @@ async function loadOrderSummary() {
 
         if (!data.success || data.items.length === 0) {
             alert('Your cart is empty. Redirecting to the shop...');
-            window.location.href = '/index.html';
+            window.location.href = '../../index.html';
             return;
         }
 
@@ -67,7 +67,7 @@ function renderOrderSummary(data) {
 
         var html = '';
         html += '<div class="summary-item-img-wrap">';
-        html += '  <img src="' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="summary-item-img" />';
+        html += '  <img src="../../' + escapeHTML(item.image_path) + '" alt="' + escapeHTML(item.name) + '" class="summary-item-img" />';
         html += '  <span class="summary-item-qty-badge">' + item.quantity + '</span>';
         html += '</div>';
         html += '<div class="summary-item-info">';
@@ -147,7 +147,7 @@ function getSelectedShippingFee() {
 function updateShippingAndTotal() {
     var fee = getSelectedShippingFee();
     var shippingEl = document.getElementById('checkout-shipping');
-    var totalEl    = document.getElementById('checkout-total');
+    var totalEl = document.getElementById('checkout-total');
 
     if (fee === null) {
         // No shipping method selected yet
@@ -165,13 +165,13 @@ function updateShippingAndTotal() {
 function updateShippingPriceLabels() {
     // If free shipping applies, update the radio labels
     if (currentSubtotal >= 150) {
-        document.getElementById('price-spx').innerHTML      = '<span class="free">FREE</span>';
-        document.getElementById('price-ninjavan').innerHTML  = '<span class="free">FREE</span>';
-        document.getElementById('price-jnt').innerHTML       = '<span class="free">FREE</span>';
+        document.getElementById('price-spx').innerHTML = '<span class="free">FREE</span>';
+        document.getElementById('price-ninjavan').innerHTML = '<span class="free">FREE</span>';
+        document.getElementById('price-jnt').innerHTML = '<span class="free">FREE</span>';
     } else {
-        document.getElementById('price-spx').textContent     = 'RM 3.90';
+        document.getElementById('price-spx').textContent = 'RM 3.90';
         document.getElementById('price-ninjavan').textContent = 'RM 5.90';
-        document.getElementById('price-jnt').textContent     = 'RM 6.90';
+        document.getElementById('price-jnt').textContent = 'RM 6.90';
     }
 }
 
@@ -393,20 +393,20 @@ async function handleSubmit(e) {
 
     // ---- Prepare form data ----
     var formData = new FormData();
-    formData.append('email',           document.getElementById('email').value.trim());
-    formData.append('first_name',      document.getElementById('first_name').value.trim());
-    formData.append('last_name',       document.getElementById('last_name').value.trim());
-    formData.append('address',         document.getElementById('address').value.trim());
-    formData.append('address2',        document.getElementById('address2').value.trim());
-    formData.append('postcode',        document.getElementById('postcode').value.trim());
-    formData.append('city',            document.getElementById('city').value.trim());
-    formData.append('state',           document.getElementById('state').value);
-    formData.append('phone',           document.getElementById('phone').value.trim());
+    formData.append('email', document.getElementById('email').value.trim());
+    formData.append('first_name', document.getElementById('first_name').value.trim());
+    formData.append('last_name', document.getElementById('last_name').value.trim());
+    formData.append('address', document.getElementById('address').value.trim());
+    formData.append('address2', document.getElementById('address2').value.trim());
+    formData.append('postcode', document.getElementById('postcode').value.trim());
+    formData.append('city', document.getElementById('city').value.trim());
+    formData.append('state', document.getElementById('state').value);
+    formData.append('phone', document.getElementById('phone').value.trim());
     formData.append('shipping_method', document.querySelector('input[name="shipping_method"]:checked').value);
-    formData.append('payment_method',  document.querySelector('input[name="payment_method"]:checked').value);
+    formData.append('payment_method', document.querySelector('input[name="payment_method"]:checked').value);
 
     // ---- Disable button & show loading ----
-    var payBtn  = document.getElementById('pay-btn');
+    var payBtn = document.getElementById('pay-btn');
     var loading = document.getElementById('checkout-loading');
 
     payBtn.disabled = true;
@@ -423,7 +423,7 @@ async function handleSubmit(e) {
 
         if (data.success) {
             // Redirect to receipt page
-            window.location.href = data.redirect || '/pages/shopping/receipt.html';
+            window.location.href = data.redirect ? ('../../' + data.redirect.replace(/^\/+/, '')) : 'receipt.html';
         } else if (data.errors) {
             // Server-side validation errors
             loading.classList.remove('active');

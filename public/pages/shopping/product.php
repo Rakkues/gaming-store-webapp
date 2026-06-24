@@ -54,10 +54,33 @@ if (isset($_GET['id'])) {
         <h3 class="product-price">RM<?php echo $product['price']?></h3>
         <p class="product-desc"><?php echo $product['description']?></p>
         <div class="action-container">
-          <button class="buy-btn">Buy Now</button>
-          <button class="add-cart-btn">Add to Cart</button>
+          <button id="buy-now-btn" class="buy-btn">Buy Now</button>
+          <button id="add-to-cart-btn" class="add-cart-btn">Add to Cart</button>
         </div>
         </div>
       </div>
+
+      <!-- Add to Cart Modal -->
+      <div id="cart-modal" class="modal-overlay">
+        <div class="modal-content">
+          <button id="close-modal" class="close-btn">&times;</button>
+          <div class="modal-header">
+            <span class="checkmark">&#10003;</span> ADDED TO CART
+          </div>
+          <div class="modal-body">
+            <img src="../../<?php echo $product['image_path']?>" alt="Product Image" class="modal-product-img" />
+            <div class="modal-product-info">
+              <h4 class="modal-product-name"><?php echo $product['name']?></h4>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button id="view-cart-btn" class="modal-btn-secondary">View cart (<span id="modal-cart-count"></span>)</button>
+            <button id="checkout-btn" class="modal-btn-primary">Checkout</button>
+            <button id="continue-shopping-btn" class="modal-btn-tertiary">Continue shopping</button>
+          </div>
+        </div>
+      </div>
+
+      <script src="../../js/product.js"></script>
     </body>
 </html>
