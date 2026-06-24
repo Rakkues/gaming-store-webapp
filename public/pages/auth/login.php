@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id']   = $user['userid'];
                 $_SESSION['username']  = $user['username'];
                 $_SESSION['logged_in'] = true;
-                header("Location: dashboard.php");
+                header("Location: ../../index.php");
                 exit;
 
             } else {
@@ -116,6 +116,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 6px;
         }
         button:hover { background: #1a252f; }
+        .guest-link {
+            display: block;
+            margin-top: 14px;
+            color: #2c3e50;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+        .guest-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -148,6 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <button type="submit">Log In</button>
+        <a class="guest-link" href="../../index.php">Continue as guest</a>
     </form>
 </div>
 

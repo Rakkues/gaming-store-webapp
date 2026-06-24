@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = !empty($_SESSION['logged_in']);
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,12 +21,18 @@
         </div>
         <input type="text" class="search-bar" placeholder="Search" />
         <div class="login-cart-container">
-          <button onclick="window.location.href = './pages/auth/login.php'">
-            Login
-          </button>
-          <button onclick="window.location.href = './pages/shopping/cart.html'">
-            Cart
-          </button>
+          <?php if ($isLoggedIn): ?>
+            <button onclick="window.location.href = './pages/shopping/cart.html'">
+              Cart
+            </button>
+            <button onclick="window.location.href = './pages/auth/logout.php'">
+              Logout
+            </button>
+          <?php else: ?>
+            <button onclick="window.location.href = './pages/auth/login.php'">
+              Login
+            </button>
+          <?php endif; ?>
         </div>
       </div>
       <div class="header-bottom">
