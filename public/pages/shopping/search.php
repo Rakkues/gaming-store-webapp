@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../../../src/api/fetch_products.php';
 
-$category = $_GET["category"] ?? "";
-$sortStrategy = $_GET["sort"] ?? "default";
-$products = fetchProducts($category, $sortStrategy);
+$searchQuery = $_GET["name"];
+
+$products = searchProducts($searchQuery);
 
 ?>
 
@@ -13,24 +13,13 @@ $products = fetchProducts($category, $sortStrategy);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="../../css/category.css" />
-    <title>Gaming Store - <?= ucfirst($category) ?></title>
-    <script src="../../js/category.js" defer></script>
+    <link rel="stylesheet" href="../../css/search.css" />
+    <title>Product</title>
   </head>
   <body>
     <?php include "../components/header.php" ?>
-    <div class="category-header-container">
-      <h1><?= ucfirst($category) ?></h1>
-      <div class="sort-choice-container">
-        <p>Sort by:</p>
-        <select name="sort-by" id="sort-by" onchange="changeSort(this.value)">
-          <option value="default" <?= ($sortStrategy === 'default') ? 'selected' : ''; ?>>Default</option>
-          <option value="newly-added" <?= ($sortStrategy === 'newly-added') ? 'selected' : ''; ?>>Newly Added</option>
-          <option value="alphabetical" <?= ($sortStrategy === 'alphabetical') ? 'selected' : ''; ?>>Alphabetical A-Z</option>
-        </select>
-      </div>
-    </div>
-    <div class="product-list-container">
+    <h1>Showing results for "<?= $searchQuery ?>"</h1>
+    <div class="search-list-container">
       <?php foreach ($products as $product) : ?>
       <div class="item">
           <div class="item-img-container">

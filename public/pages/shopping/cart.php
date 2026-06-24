@@ -13,65 +13,7 @@
   </head>
   <body>
     <!-- ========== HEADER (consistent with other pages) ========== -->
-    <header>
-      <div class="header-top">
-        <div class="store-logo-container">
-          <a href="/gaming-store-webapp/public">
-            <img src="../../assets/store-logo.png" alt="Gaming Store Logo" />
-          </a>
-        </div>
-        <input type="text" class="search-bar" placeholder="Search" />
-        <div class="login-cart-container">
-          <button
-            onclick="
-              window.location.href =
-                '/gaming-store-webapp/public/pages/auth/login.html'
-            "
-          >
-            Login
-          </button>
-          <button
-            onclick="
-              window.location.href =
-                '/gaming-store-webapp/public/pages/shopping/cart.html'
-            "
-          >
-            Cart
-          </button>
-        </div>
-      </div>
-      <div class="header-bottom">
-        <nav class="navbar">
-          <ul>
-            <li><a href="/gaming-store-webapp/public">Home</a></li>
-            <li>
-              <a
-                href="/gaming-store-webapp/public/pages/shopping/category.php?category=mouse"
-                >Mouse</a
-              >
-            </li>
-            <li>
-              <a
-                href="/gaming-store-webapp/public/pages/shopping/category.php?category=keyboard"
-                >Keyboard</a
-              >
-            </li>
-            <li>
-              <a
-                href="/gaming-store-webapp/public/pages/shopping/category.php?category=audio"
-                >Audio</a
-              >
-            </li>
-            <li>
-              <a
-                href="/gaming-store-webapp/public/pages/shopping/category.php?category=collectibles"
-                >Collectibles</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <?php include "../components/header.php" ?>
 
     <!-- ========== MAIN CONTENT ========== -->
     <main class="cart-page">

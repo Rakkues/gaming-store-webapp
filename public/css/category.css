@@ -1,3 +1,7 @@
+:root {
+  --bg-color: #f7f7f7;
+}
+
 .category-header-container {
   align-items: center;
   display: flex;
@@ -12,14 +16,21 @@
 }
 
 .sort-choice-container select {
+  background-color: var(--bg-color);
   border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}
+
+.sort-choice-container select:focus {
+  outline: black;
 }
 
 .product-list-container {
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  gap: 1rem;
+  gap: 50px;
 }
 
 .product-container {
