@@ -1,114 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Your order has been confirmed. Thank you for shopping with Gaming Store!" />
-        <title>Order Confirmed — Gaming Store</title>
-        <link rel="stylesheet" href="../../css/receipt.css" />
-    </head>
-    <body>
-        <main class="receipt-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Your order has been confirmed. Thank you for shopping with Gaming Store!"
+    />
+    <title>Order Confirmed — Gaming Store</title>
+    <link rel="stylesheet" href="../../css/receipt.css" />
+  </head>
+  <body>
+    <main class="receipt-page">
+      <!-- Loading state -->
+      <div class="receipt-loading" id="receipt-loading">
+        <div class="spinner"></div>
+        <p>Loading your receipt...</p>
+      </div>
 
-            <!-- Loading state -->
-            <div class="receipt-loading" id="receipt-loading">
-                <div class="spinner"></div>
-                <p>Loading your receipt...</p>
+      <!-- Receipt card (populated by JS) -->
+      <div class="receipt-card" id="receipt-card" style="display: none">
+        <!-- ---- Green Checkmark ---- -->
+        <div class="success-icon-container">
+          <div class="success-checkmark">
+            <svg class="checkmark-svg" viewBox="0 0 36 36">
+              <polyline points="8 18 15 26 28 10" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- ---- Heading ---- -->
+        <div class="receipt-heading">
+          <h1>Thank You for Your Order!</h1>
+          <p>
+            Your payment was successful. A confirmation will be sent to your
+            email.
+          </p>
+        </div>
+
+        <!-- ---- Key Info: Transaction ID, Order Number, Tracking ID ---- -->
+        <div class="order-key-info">
+          <div class="info-block">
+            <p class="info-label">Transaction ID</p>
+            <p class="info-value" id="transaction-id">—</p>
+          </div>
+          <div class="info-block">
+            <p class="info-label">Order Number</p>
+            <p class="info-value" id="order-number">—</p>
+          </div>
+          <div class="info-block">
+            <p class="info-label">Tracking ID</p>
+            <p class="info-value" id="tracking-id">—</p>
+          </div>
+        </div>
+
+        <hr class="receipt-divider" />
+
+        <!-- ---- Order Items ---- -->
+        <div class="receipt-section">
+          <h3 class="receipt-section-title">Order Items</h3>
+          <div id="receipt-items-list">
+            <!-- Rendered by receipt.js -->
+          </div>
+        </div>
+
+        <hr class="receipt-divider" />
+
+        <!-- ---- Delivery & Payment Info ---- -->
+        <div class="receipt-section">
+          <div class="receipt-info-grid">
+            <div class="receipt-info-block">
+              <h4>Delivery Address</h4>
+              <p id="delivery-name">—</p>
+              <p id="delivery-address">—</p>
+              <p id="delivery-city">—</p>
+              <p id="delivery-country">—</p>
+              <p id="delivery-phone">—</p>
             </div>
-
-            <!-- Receipt card (populated by JS) -->
-            <div class="receipt-card" id="receipt-card" style="display: none;">
-
-                <!-- ---- Green Checkmark ---- -->
-                <div class="success-icon-container">
-                    <div class="success-checkmark">
-                        <svg class="checkmark-svg" viewBox="0 0 36 36">
-                            <polyline points="8 18 15 26 28 10" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- ---- Heading ---- -->
-                <div class="receipt-heading">
-                    <h1>Thank You for Your Order!</h1>
-                    <p>Your payment was successful. A confirmation will be sent to your email.</p>
-                </div>
-
-                <!-- ---- Key Info: Transaction ID, Order Number, Tracking ID ---- -->
-                <div class="order-key-info">
-                    <div class="info-block">
-                        <p class="info-label">Transaction ID</p>
-                        <p class="info-value" id="transaction-id">—</p>
-                    </div>
-                    <div class="info-block">
-                        <p class="info-label">Order Number</p>
-                        <p class="info-value" id="order-number">—</p>
-                    </div>
-                    <div class="info-block">
-                        <p class="info-label">Tracking ID</p>
-                        <p class="info-value" id="tracking-id">—</p>
-                    </div>
-                </div>
-
-                <hr class="receipt-divider" />
-
-                <!-- ---- Order Items ---- -->
-                <div class="receipt-section">
-                    <h3 class="receipt-section-title">Order Items</h3>
-                    <div id="receipt-items-list">
-                        <!-- Rendered by receipt.js -->
-                    </div>
-                </div>
-
-                <hr class="receipt-divider" />
-
-                <!-- ---- Delivery & Payment Info ---- -->
-                <div class="receipt-section">
-                    <div class="receipt-info-grid">
-                        <div class="receipt-info-block">
-                            <h4>Delivery Address</h4>
-                            <p id="delivery-name">—</p>
-                            <p id="delivery-address">—</p>
-                            <p id="delivery-city">—</p>
-                            <p id="delivery-country">—</p>
-                            <p id="delivery-phone">—</p>
-                        </div>
-                        <div class="receipt-info-block">
-                            <h4>Shipping & Payment</h4>
-                            <p>Shipping: <strong id="shipping-method-name">—</strong></p>
-                            <p>Payment: <strong id="payment-method-name">—</strong></p>
-                            <p>Status: <strong id="order-status">Confirmed</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="receipt-divider" />
-
-                <!-- ---- Financial Totals ---- -->
-                <div class="receipt-section receipt-totals">
-                    <div class="receipt-total-row">
-                        <span>Subtotal</span>
-                        <span id="receipt-subtotal">RM 0.00</span>
-                    </div>
-                    <div class="receipt-total-row">
-                        <span>Shipping</span>
-                        <span id="receipt-shipping">RM 0.00</span>
-                    </div>
-                    <div class="receipt-total-row final">
-                        <span>Total Paid</span>
-                        <span id="receipt-total">RM 0.00</span>
-                    </div>
-                </div>
-
-                <!-- ---- Action Buttons ---- -->
-                <div class="receipt-actions">
-                    <a href="../../index.html" class="btn-primary">Continue Shopping</a>
-                    <a href="../../index.html" class="btn-outline">Home</a>
-                </div>
+            <div class="receipt-info-block">
+              <h4>Shipping & Payment</h4>
+              <p>Shipping: <strong id="shipping-method-name">—</strong></p>
+              <p>Payment: <strong id="payment-method-name">—</strong></p>
+              <p>Status: <strong id="order-status">Confirmed</strong></p>
             </div>
+          </div>
+        </div>
 
-        </main>
+        <hr class="receipt-divider" />
 
-        <script src="../../js/receipt.js"></script>
-    </body>
+        <!-- ---- Financial Totals ---- -->
+        <div class="receipt-section receipt-totals">
+          <div class="receipt-total-row">
+            <span>Subtotal</span>
+            <span id="receipt-subtotal">RM 0.00</span>
+          </div>
+          <div class="receipt-total-row">
+            <span>Shipping</span>
+            <span id="receipt-shipping">RM 0.00</span>
+          </div>
+          <div class="receipt-total-row final">
+            <span>Total Paid</span>
+            <span id="receipt-total">RM 0.00</span>
+          </div>
+        </div>
+
+        <!-- ---- Action Buttons ---- -->
+        <div class="receipt-actions">
+          <a href="/gaming-store-webapp/public/" class="btn-primary"
+            >Continue Shopping</a
+          >
+          <a href="/gaming-store-webapp/public/" class="btn-outline">Home</a>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/receipt.js"></script>
+  </body>
 </html>
