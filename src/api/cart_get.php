@@ -1,4 +1,5 @@
 <?php
+
 /**
  * cart_get.php — Return current cart contents with live DB prices/stock
  * Method: GET
@@ -39,7 +40,9 @@ $subtotal = 0.0;
 
 foreach ($cart as $pid => $entry) {
     $product = $products[$pid] ?? null;
-    if (!$product) continue; // Product deleted from store
+    if (!$product) {
+        continue; // Product deleted from store
+    }
 
     // Clamp quantity to available stock
     $qty = min($entry['quantity'], (int) $product['stock']);
