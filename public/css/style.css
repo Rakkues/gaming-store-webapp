@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  padding: 3rem;
   font-family:
     "Segoe UI",
     -apple-system,
@@ -18,7 +19,7 @@ body {
 
 /*header styling start*/
 header {
-  border-bottom: 1px solid black;
+  border-bottom: 3px solid black;
   display: flex;
   flex-direction: column;
   padding: 2vh 2.5vw;
