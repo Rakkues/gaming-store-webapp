@@ -30,33 +30,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } else {
 
-        $username = trim($_POST['username'] ?? '');
+        $email = trim($_POST['email'] ?? '');
         $password = $_POST['user_password'] ?? '';
 
-        if (empty($username) || empty($password)) {
+        if (empty($email) || empty($password)) {
             $error = "Please fill in all fields.";
 
-        } elseif (strlen($password) < 14) {
-            $error = "Invalid username or password.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = "Invalid email or password.";
+
+        } elseif (strlen($password) < 8) {
+            $error = "Invalid email or password.";
 
         } else {
 
-            $stmt = $pdo->prepare("SELECT userid, password FROM users WHERE username = ? LIMIT 1");
-            $stmt->execute([$username]);
+            $stmt = $pdo->prepare("SELECT userid, username, password FROM users WHERE email = ? LIMIT 1");
+            $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
            
             if ($user && password_verify($password, $user['password'])) {
 
                 session_regenerate_id(true); 
                 $_SESSION['user_id']   = $user['userid'];
-                $_SESSION['username']  = $username;
+                $_SESSION['username']  = $user['username'];
                 $_SESSION['logged_in'] = true;
                 header("Location: dashboard.php");
                 exit;
 
             } else {
               
-                $error = "Invalid username or password.";
+                $error = "Invalid email or password.";
             }
         }
     }
@@ -89,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         h2 { margin-bottom: 22px; color: #2c3e50; }
         .form-group { margin-bottom: 16px; }
         label { display: block; margin-bottom: 5px; font-size: 0.88em; font-weight: bold; color: #444; }
-        input[type="text"],
+        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -128,15 +131,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required maxlength="50">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required maxlength="255">
         </div>
 
         <div class="form-group">
             <label for="user_password">
-                Password <span style="font-weight:normal; color:#888;">(min 14 characters)</span>
+                Password <span style="font-weight:normal; color:#888;">(min 8 characters)</span>
             </label>
-            <input type="password" id="user_password" name="user_password" required minlength="14">
+            <input type="password" id="user_password" name="user_password" required minlength="8">
             <div class="show-row">
                 <input type="checkbox" id="show_pw" onclick="togglePassword()">
                 <label for="show_pw" style="font-weight:normal;">Show password</label>

@@ -22,6 +22,7 @@ $csrfToken = $_SESSION['csrf_token'];
 $error = "";
 $success = "";
 $username = "";
+$email = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = $_POST['csrf_token'] ?? '';
@@ -30,30 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Invalid request. Please refresh and try again.";
     } else {
         $username = trim($_POST['username'] ?? '');
+        $email = trim($_POST['email'] ?? '');
         $password = $_POST['user_password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
 
-        if ($username === '' || $password === '' || $confirmPassword === '') {
+        if ($username === '' || $email === '' || $password === '' || $confirmPassword === '') {
             $error = "Please fill in all fields.";
-        } elseif (strlen($password) < 14) {
-            $error = "Password must be at least 14 characters.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = "Please enter a valid email address.";
+        } elseif (strlen($password) < 8) {
+            $error = "Password must be at least 8 characters.";
         } elseif ($password !== $confirmPassword) {
             $error = "Passwords do not match.";
         } else {
-            $stmt = $pdo->prepare("SELECT userid FROM users WHERE username = ? LIMIT 1");
-            $stmt->execute([$username]);
+            $stmt = $pdo->prepare("SELECT userid FROM users WHERE email = ? LIMIT 1");
+            $stmt->execute([$email]);
 
             if ($stmt->fetch()) {
-                $error = "Username already exists.";
+                $error = "Email already exists.";
             } else {
                 $passwordHash = password_hash($password, PASSWORD_ARGON2ID);
                 $stmt = $pdo->prepare(
-                    "INSERT INTO users (username, password, usertype) VALUES (?, ?, 'customer')"
+                    "INSERT INTO users (username, email, password, usertype) VALUES (?, ?, ?, 'customer')"
                 );
-                $stmt->execute([$username, $passwordHash]);
+                $stmt->execute([$username, $email, $passwordHash]);
 
                 $success = "Registration successful. You can now log in.";
                 $username = "";
+                $email = "";
             }
         }
     }
@@ -87,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-group { margin-bottom: 16px; }
         label { display: block; margin-bottom: 5px; font-size: 0.88em; font-weight: bold; color: #444; }
         input[type="text"],
+        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -134,15 +140,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required maxlength="255" value="<?= htmlspecialchars($email) ?>">
+        </div>
+
+        <div class="form-group">
             <label for="user_password">
-                Password <span style="font-weight:normal; color:#888;">(min 14 characters)</span>
+                Password <span style="font-weight:normal; color:#888;">(min 8 characters)</span>
             </label>
-            <input type="password" id="user_password" name="user_password" required minlength="14">
+            <input type="password" id="user_password" name="user_password" required minlength="8">
         </div>
 
         <div class="form-group">
             <label for="confirm_password">Confirm password</label>
-            <input type="password" id="confirm_password" name="confirm_password" required minlength="14">
+            <input type="password" id="confirm_password" name="confirm_password" required minlength="8">
             <div class="show-row">
                 <input type="checkbox" id="show_pw" onclick="togglePasswords()">
                 <label for="show_pw" style="font-weight:normal;">Show password</label>
