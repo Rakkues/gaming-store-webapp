@@ -2,8 +2,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="./css/header.css" />
+    <title>Gaming Store - Home</title>
+    <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <script src="./js/index.js" defer></script>
   </head>
@@ -11,7 +11,7 @@
     <header>
       <div class="header-top">
         <div class="store-logo-container">
-          <a href="#home">
+          <a href="https://localhost/gaming-store-webapp/public/">
             <img src="./assets/store-logo.png" alt="store logo" />
           </a>
         </div>
@@ -28,16 +28,32 @@
       <div class="header-bottom">
         <nav class="navbar">
           <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Mouse</a></li>
-            <li><a href="">Keyboard</a></li>
-            <li><a href="">Audio</a></li>
-            <li><a href="">Collectibles</a></li>
+            <li>
+              <a href="https://localhost/gaming-store-webapp/public/">Home</a>
+            </li>
+            <li>
+              <a href="./pages/shopping/category.php?category=mouse">Mouse</a>
+            </li>
+            <li>
+              <a href="./pages/shopping/category.php?category=keyboard"
+                >Keyboard</a
+              >
+            </li>
+            <li>
+              <a href="./pages/shopping/category.php?category=audio">Audio</a>
+            </li>
+            <li>
+              <a
+                href="/public/pages/shopping/category.php?category=collectibles"
+                >Collectibles</a
+              >
+            </li>
           </ul>
         </nav>
       </div>
     </header>
     <div class="featured-banner-container">
+      <h1 class="featured-product-title">Featured Product</h1>
       <img
         src="./assets/product-images/product-1.webp"
         alt="Featured Product Banner"
