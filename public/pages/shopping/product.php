@@ -59,10 +59,17 @@ if (isset($_GET['id'])) {
         <nav class="navbar">
           <ul>
             <li><a href="https://localhost/gaming-store-webapp/public/">Home</a></li>
+<<<<<<< HEAD
             <li><a href="">Mouse</a></li>
             <li><a href="">Keyboard</a></li>
             <li><a href="">Audio</a></li>
             <li><a href="">Collectibles</a></li>
+=======
+            <li><a href="https://localhost/gaming-store-webapp/public/pages/shopping/category.php?category=mouse">Mouse</a></li>
+            <li><a href="https://localhost/gaming-store-webapp/public/pages/shopping/category.php?category=keyboard">Keyboard</a></li>
+            <li><a href="https://localhost/gaming-store-webapp/public/pages/shopping/category.php?category=audio">Audio</a></li>
+            <li><a href="https://localhost/gaming-store-webapp/public/pages/shopping/category.php?category=collectibles">Collectibles</a></li>
+>>>>>>> origin/main
           </ul>
         </nav>
       </div>
