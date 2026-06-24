@@ -18,39 +18,7 @@ $products = fetchProducts($category, $sortStrategy);
     <script src="../../js/category.js" defer></script>
   </head>
   <body>
-    <header>
-      <div class="header-top">
-        <div class="store-logo-container">
-          <a href="#home">
-            <img src="../../assets/store-logo.png" alt="store logo" />
-          </a>
-        </div>
-        <input type="text" class="search-bar" placeholder="Search" />
-        <div class="login-cart-container">
-          <button
-            onclick="window.location.href = '../../pages/auth/login.html'"
-          >
-            Login
-          </button>
-          <button
-            onclick="window.location.href = '../../pages/shopping/cart.html'"
-          >
-            Cart
-          </button>
-        </div>
-      </div>
-      <div class="header-bottom">
-        <nav class="navbar">
-          <ul>
-            <li><a href="../../">Home</a></li>
-            <li><a href="category.php?category=mouse">Mouse</a></li>
-            <li><a href="category.php?category=keyboard">Keyboard</a></li>
-            <li><a href="category.php?category=audio">Audio</a></li>
-            <li><a href="category.php?category=collectibles">Collectibles</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <?php include "../components/header.php" ?>
     <div class="category-header-container">
       <h1><?= ucfirst($category) ?></h1>
       <div class="sort-choice-container">
