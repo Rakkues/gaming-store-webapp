@@ -9,7 +9,7 @@
 // ============================================================
 // Configuration
 // ============================================================
-const API_BASE = '/api';
+const API_BASE = '../../api';
 
 // ============================================================
 // DOM Ready
@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
 // Load Cart from Server
 // ============================================================
 async function loadCart() {
-    const loadingEl  = document.getElementById('cart-loading');
-    const contentEl  = document.getElementById('cart-content');
-    const emptyEl    = document.getElementById('empty-cart');
+    const loadingEl = document.getElementById('cart-loading');
+    const contentEl = document.getElementById('cart-content');
+    const emptyEl = document.getElementById('empty-cart');
 
     // Show loading
     loadingEl.style.display = 'block';
     contentEl.style.display = 'none';
-    emptyEl.style.display   = 'none';
+    emptyEl.style.display = 'none';
 
     try {
         const response = await fetch(API_BASE + '/cart_get.php', {
@@ -49,7 +49,7 @@ async function loadCart() {
     } catch (error) {
         console.error('Error loading cart:', error);
         loadingEl.style.display = 'none';
-        emptyEl.style.display   = 'block';
+        emptyEl.style.display = 'block';
     }
 }
 
