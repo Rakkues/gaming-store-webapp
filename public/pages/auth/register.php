@@ -3,9 +3,9 @@
 session_start();
 
 $DB_HOST = "localhost";
-$DB_NAME = "gaming_retail_store";  
-$DB_USER = "root";           
-$DB_PASS = "";               
+$DB_NAME = "gaming_retail_store";
+$DB_USER = "root";
+$DB_PASS = "";
 
 $pdo = new PDO(
     "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
@@ -20,43 +20,40 @@ if (empty($_SESSION['csrf_token'])) {
 $csrfToken = $_SESSION['csrf_token'];
 
 $error = "";
+$success = "";
+$username = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-   
     $submittedToken = $_POST['csrf_token'] ?? '';
+
     if (!hash_equals($_SESSION['csrf_token'], $submittedToken)) {
         $error = "Invalid request. Please refresh and try again.";
-
     } else {
-
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['user_password'] ?? '';
+        $confirmPassword = $_POST['confirm_password'] ?? '';
 
-        if (empty($username) || empty($password)) {
+        if ($username === '' || $password === '' || $confirmPassword === '') {
             $error = "Please fill in all fields.";
-
         } elseif (strlen($password) < 14) {
-            $error = "Invalid username or password.";
-
+            $error = "Password must be at least 14 characters.";
+        } elseif ($password !== $confirmPassword) {
+            $error = "Passwords do not match.";
         } else {
-
-            $stmt = $pdo->prepare("SELECT userid, password FROM users WHERE username = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT userid FROM users WHERE username = ? LIMIT 1");
             $stmt->execute([$username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-           
-            if ($user && password_verify($password, $user['password'])) {
 
-                session_regenerate_id(true); 
-                $_SESSION['user_id']   = $user['userid'];
-                $_SESSION['username']  = $username;
-                $_SESSION['logged_in'] = true;
-                header("Location: dashboard.php");
-                exit;
-
+            if ($stmt->fetch()) {
+                $error = "Username already exists.";
             } else {
-              
-                $error = "Invalid username or password.";
+                $passwordHash = password_hash($password, PASSWORD_ARGON2ID);
+                $stmt = $pdo->prepare(
+                    "INSERT INTO users (username, password, usertype) VALUES (?, ?, 'customer')"
+                );
+                $stmt->execute([$username, $passwordHash]);
+
+                $success = "Registration successful. You can now log in.";
+                $username = "";
             }
         }
     }
@@ -67,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Gaming Store</title>
+    <title>Register | Gaming Store</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -98,9 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 0.95em;
         }
         .show-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.85em; color: #555; }
-        .show-row .register-link { margin-left: auto; color: #2c3e50; font-weight: bold; text-decoration: none; }
-        .show-row .register-link:hover { text-decoration: underline; }
+        .show-row .login-link { margin-left: auto; color: #2c3e50; font-weight: bold; text-decoration: none; }
+        .show-row .login-link:hover { text-decoration: underline; }
         .error { background: #fdecea; color: #a93226; padding: 10px 12px; border-radius: 6px; font-size: 0.88em; margin-bottom: 16px; }
+        .success { background: #eafaf1; color: #1e8449; padding: 10px 12px; border-radius: 6px; font-size: 0.88em; margin-bottom: 16px; }
         button {
             width: 100%;
             padding: 11px;
@@ -117,19 +115,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="card">
-    <h2>Login</h2>
+    <h2>Register</h2>
 
     <?php if ($error): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="login.php">
+    <?php if ($success): ?>
+        <div class="success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
 
+    <form method="POST" action="register.php">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required maxlength="50">
+            <input type="text" id="username" name="username" required maxlength="50" value="<?= htmlspecialchars($username) ?>">
         </div>
 
         <div class="form-group">
@@ -137,21 +138,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Password <span style="font-weight:normal; color:#888;">(min 14 characters)</span>
             </label>
             <input type="password" id="user_password" name="user_password" required minlength="14">
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Confirm password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required minlength="14">
             <div class="show-row">
-                <input type="checkbox" id="show_pw" onclick="togglePassword()">
+                <input type="checkbox" id="show_pw" onclick="togglePasswords()">
                 <label for="show_pw" style="font-weight:normal;">Show password</label>
-                <a class="register-link" href="register.php">Register</a>
+                <a class="login-link" href="login.php">Login</a>
             </div>
         </div>
 
-        <button type="submit">Log In</button>
+        <button type="submit">Register</button>
     </form>
 </div>
 
 <script>
-    function togglePassword() {
-        const field = document.getElementById('user_password');
-        field.type = (field.type === 'password') ? 'text' : 'password';
+    function togglePasswords() {
+        const password = document.getElementById('user_password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const nextType = password.type === 'password' ? 'text' : 'password';
+
+        password.type = nextType;
+        confirmPassword.type = nextType;
     }
 </script>
 </body>
