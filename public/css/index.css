@@ -11,6 +11,10 @@
   object-fit: contain;
 }
 
+.featured-product-title {
+  margin-top: 0;
+}
+
 .category-list {
   padding: 5px 25px;
   width: 100%;
