@@ -7,6 +7,25 @@ CREATE DATABASE IF NOT EXISTS gaming_retail_store CHARACTER SET utf8mb4 COLLATE 
 USE gaming_retail_store;
 
 -- ============================================================
+-- Users Tabel
+-- ============================================================
+CREATE TABLE IF NOT EXISTS users (
+    userid   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50)  NOT NULL,
+    email    VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    usertype ENUM('admin', 'customer') NOT NULL DEFAULT 'customer'
+) ENGINE=InnoDB;
+
+INSERT INTO users (username, email, password, usertype) VALUES
+('customer1', 'customer@testmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Nzk4dFZ6WG56MlBkT0l5ZA$2xF7qXo9RIHjipBnojWyC2uGlgei1hPtzNthjawAeF4', 'customer'),
+('admin', 'admin@testmail.com', '$argon2id$v=19$m=65536,t=4,p=1$REpFcEpEamhUdkIvMnUybQ$vh8ahTk89xd8wBnYsrgz4ADZgh3rrsy1Z4OYkkXEhNg', 'admin')
+ON DUPLICATE KEY UPDATE
+    username = VALUES(username),
+    password = VALUES(password),
+    usertype = VALUES(usertype);
+
+-- ============================================================
 -- Products Table
 -- ============================================================
 CREATE TABLE IF NOT EXISTS products (
