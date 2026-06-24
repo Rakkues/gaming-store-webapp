@@ -14,7 +14,7 @@ $products = fetchProducts($category, $sortStrategy);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/category.css" />
-    <title>Gaming Store - <?= ucfirst($category) ?></title>
+    <title><?= ucfirst($category) ?> — Gaming Store</title>
     <script src="../../js/category.js" defer></script>
   </head>
   <body>
@@ -26,7 +26,10 @@ $products = fetchProducts($category, $sortStrategy);
         <select name="sort-by" id="sort-by" onchange="changeSort(this.value)">
           <option value="default" <?= ($sortStrategy === 'default') ? 'selected' : ''; ?>>Default</option>
           <option value="newly-added" <?= ($sortStrategy === 'newly-added') ? 'selected' : ''; ?>>Newly Added</option>
-          <option value="alphabetical" <?= ($sortStrategy === 'alphabetical') ? 'selected' : ''; ?>>Alphabetical A-Z</option>
+          <option value="alphabetical-az" <?= ($sortStrategy === 'alphabetical-az') ? 'selected' : ''; ?>>Alphabetical A-Z</option>
+          <option value="alphabetical-za" <?= ($sortStrategy === 'alphabetical-za') ? 'selected' : ''; ?>>Alphabetical Z-A</option>
+          <option value="price-lowhigh" <?= ($sortStrategy === 'price-lowhigh') ? 'selected' : ''; ?>>Price: Low to High</option>
+          <option value="price-highlow" <?= ($sortStrategy === 'price-highlow') ? 'selected' : ''; ?>>Price: High to Low</option>
         </select>
       </div>
     </div>

@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/product.css" />
-    <title>Product</title>
+    <title><?= $product['name'] ?> — Gaming Store</title>
   </head>
   <body>
     <?php include "../components/header.php" ?>

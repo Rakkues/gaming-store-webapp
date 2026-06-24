@@ -10,8 +10,11 @@ function fetchProducts($category, $sortBy = 'default'): array
         $conn = getDBConnection();
 
         $sortStrategies = [
-        'alphabetical' => 'name ASC',
+        'alphabetical-az' => 'name ASC',
+        'alphabetical-za' => 'name DESC',
         'newly_added' => 'created_at DESC',
+        'price-lowhigh' => 'price ASC',
+        'price-highlow' => 'price DESC',
         'default' => 'id DESC'
         ];
 

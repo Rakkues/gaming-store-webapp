@@ -6,7 +6,7 @@ $isLoggedIn = !empty($_SESSION['logged_in']);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gaming Store - Home</title>
+    <title>Home — Gaming Store</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <script src="./js/index.js" defer></script>
