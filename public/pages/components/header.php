@@ -5,7 +5,10 @@
         <img src="/gaming-store-webapp/public/assets/store-logo.png" alt="store logo" />
       </a>
     </div>
-    <input type="text" class="search-bar" placeholder="Search" />
+    <form action="/gaming-store-webapp/public/pages/shopping/search.php" method="get">
+      <input type="text" name="name" class="search-bar" placeholder="Search for a product..." />
+      <button type="submit" class="search-btn">Search</button>
+    </form>
     <div class="login-cart-container">
       <?php if ($isLoggedIn) : ?>
         <button onclick="window.location.href = './pages/shopping/cart.html'">
@@ -24,21 +27,21 @@
   <div class="header-bottom">
     <nav class="navbar">
       <ul>
-        <li>
+        <li class="header-link">
           <a href="https://localhost/gaming-store-webapp/public/">Home</a>
         </li>
-        <li>
+        <li class="header-link">
           <a href="/gaming-store-webapp/public/pages/shopping/category.php?category=mouse">Mouse</a>
         </li>
-        <li>
+        <li class="header-link">
           <a href="/gaming-store-webapp/public/pages/shopping/category.php?category=keyboard"
             >Keyboard</a
           >
         </li>
-        <li>
+        <li class="header-link">
           <a href="/gaming-store-webapp/public/pages/shopping/category.php?category=audio">Audio</a>
         </li>
-        <li>
+        <li class="header-link">
           <a
             href="/gaming-store-webapp/public/pages/shopping/category.php?category=collectibles"
             >Collectibles</a
