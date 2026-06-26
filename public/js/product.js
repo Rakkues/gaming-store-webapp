@@ -58,12 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (buyNowBtn) {
     buyNowBtn.addEventListener("click", () => {
-      if (!window.userIsLoggedIn) {
-        alert("You must be logged in to buy this product.");
-        window.location.href = "/gaming-store-webapp/public/pages/auth/login.php";
-        return;
-      }
-
       if (!productId) {
         alert("Invalid product.");
         return;

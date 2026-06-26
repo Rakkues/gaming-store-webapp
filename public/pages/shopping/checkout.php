@@ -1,7 +1,9 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['user_id'])) {
+$isBuyNowCheckout = ($_GET['mode'] ?? '') === 'buy_now' && !empty($_GET['product_id']);
+
+if (!isset($_SESSION['user_id']) && !$isBuyNowCheckout) {
     header("Location: /gaming-store-webapp/public/pages/auth/login.php");
     exit();
 }
