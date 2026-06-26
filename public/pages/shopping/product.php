@@ -81,6 +81,9 @@ if (isset($_GET['id'])) {
         </div>
       </div>
 
+      <script>
+        window.userIsLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+      </script>
       <script src="../../js/product.js"></script>
     </body>
 </html>
