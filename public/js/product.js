@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (buyNowBtn) {
     buyNowBtn.addEventListener("click", () => {
       // Add to cart and redirect to checkout
-      addToCart("/gaming-store-webapp/public/pages/shopping/checkout.html");
+      addToCart("/gaming-store-webapp/public/pages/shopping/checkout.php");
     });
   }
 
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
       window.location.href =
-        "/gaming-store-webapp/public/pages/shopping/checkout.html";
+        "/gaming-store-webapp/public/pages/shopping/checkout.php";
     });
   }
 

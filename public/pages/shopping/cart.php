@@ -43,7 +43,7 @@
             <span>Estimated Total</span>
             <span id="cart-total">RM 0.00</span>
           </div>
-          <a href="checkout.html" class="checkout-btn" id="checkout-btn">
+          <a href="checkout.php" class="checkout-btn" id="checkout-btn">
             Proceed to Checkout
           </a>
         </div>
