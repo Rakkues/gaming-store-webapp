@@ -270,3 +270,88 @@ a:visited {
   color: #666;
   font-size: 0.9rem;
 }
+
+.admin-alert {
+  border-radius: 5px;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+}
+
+.admin-alert.success {
+  background-color: #eafaf1;
+  color: #1e8449;
+}
+
+.admin-alert.error {
+  background-color: #fdecea;
+  color: #a93226;
+}
+
+.admin-alert p {
+  margin: 0.25rem 0;
+}
+
+.admin-action-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-action-group form {
+  margin: 0;
+}
+
+.admin-action {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+}
+
+.admin-action.edit {
+  background-color: black;
+  color: white;
+}
+
+.admin-action.danger {
+  background-color: #a93226;
+  color: white;
+}
+
+.admin-edit-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+}
+
+.admin-edit-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 0.35rem;
+}
+
+.admin-edit-form input,
+.admin-edit-form select,
+.admin-edit-form textarea {
+  border: 1px solid #999;
+  border-radius: 5px;
+  font: inherit;
+  padding: 0.65rem;
+}
+
+.admin-form-actions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.admin-form-actions button {
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+}

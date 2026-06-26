@@ -8,6 +8,10 @@ if (($_SESSION['usertype'] ?? '') !== 'admin') {
 
 require_once __DIR__ . '/../../../src/config/database.php';
 
+if (empty($_SESSION['admin_product_token'])) {
+    $_SESSION['admin_product_token'] = bin2hex(random_bytes(32));
+}
+
 $pdo = getDBConnection();
 $search = trim($_GET['search'] ?? '');
 $category = trim($_GET['category'] ?? '');
@@ -75,6 +79,14 @@ $products = $stmt->fetchAll();
       <h1 class="featured-product-title">Inventory</h1>
       <p>View all products currently stored in the database.</p>
 
+      <?php if (!empty($_GET['success'])) : ?>
+        <p class="admin-alert success"><?= htmlspecialchars($_GET['success']) ?></p>
+      <?php endif; ?>
+
+      <?php if (!empty($_GET['error'])) : ?>
+        <p class="admin-alert error"><?= htmlspecialchars($_GET['error']) ?></p>
+      <?php endif; ?>
+
       <form class="admin-filter-form" method="GET" action="inventory.php">
         <div class="admin-filter-field">
           <label for="search">Search</label>
@@ -128,12 +140,13 @@ $products = $stmt->fetchAll();
               <th>Price</th>
               <th>Stock</th>
               <th>Created</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <?php if (empty($products)) : ?>
               <tr>
-                <td colspan="7">No products found.</td>
+                <td colspan="8">No products found.</td>
               </tr>
             <?php endif; ?>
 
@@ -155,6 +168,16 @@ $products = $stmt->fetchAll();
                 <td>RM <?= htmlspecialchars(number_format((float) $product['price'], 2)) ?></td>
                 <td><?= htmlspecialchars((string) $product['stock']) ?></td>
                 <td><?= htmlspecialchars($product['created_at']) ?></td>
+                <td>
+                  <div class="admin-action-group">
+                    <a class="admin-action edit" href="edit_product.php?id=<?= urlencode((string) $product['id']) ?>">Edit</a>
+                    <form method="POST" action="delete_product.php" onsubmit="return confirm('Remove this product?');">
+                      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['admin_product_token']) ?>">
+                      <input type="hidden" name="id" value="<?= htmlspecialchars((string) $product['id']) ?>">
+                      <button class="admin-action danger" type="submit">Remove</button>
+                    </form>
+                  </div>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
