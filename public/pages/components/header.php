@@ -35,7 +35,7 @@ $isLoggedIn = !empty($_SESSION['logged_in']);
     <nav class="navbar">
       <ul>
         <li class="header-link">
-          <a href="https://localhost/gaming-store-webapp/public/">Home</a>
+          <a href="/gaming-store-webapp/public/">Home</a>
         </li>
         <li class="header-link">
           <a href="/gaming-store-webapp/public/pages/shopping/category.php?category=mouse">Mouse</a>
