@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const productId = urlParams.get("id");
 
   const addToCart = async (redirectUrl = null, showModal = false) => {
+    if (!window.userIsLoggedIn) {
+      alert("You must be logged in to add items to your cart.");
+      window.location.href = "/gaming-store-webapp/public/pages/auth/login.php";
+      return;
+    }
+
     if (!productId) {
       alert("Invalid product.");
       return;

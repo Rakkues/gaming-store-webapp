@@ -45,7 +45,7 @@ $products = fetchProducts($category, $sortStrategy);
           </div>
           <div class="item-description">
             <a href="/gaming-store-webapp/public/pages/shopping/product.php?id=<?= $product['id'] ?>"><h3 class="item-name"><?= $product['name'] ?></h3></a>
-            <p class="item-price">RM<?= $product['price'] ?></p>
+            <p class="item-price"><?= $product['stock'] === 0 ? "SOLD OUT" : "RM" . $product['price'] ?></p>
           </div>
       </div>
       <?php endforeach; ?>

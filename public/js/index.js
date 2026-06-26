@@ -39,20 +39,38 @@ async function loadProducts() {
       `#${data.category.toLowerCase()}-list`,
     );
 
-    itemList.innerHTML += `
-    <div class="item">
-        <div class="item-img-container">
-            <img
-                src=".${data.image_path}"
-                alt=""
-                class="item-img"
-            />
+    if (data.stock === 0) {
+      itemList.innerHTML += `
+        <div class="item">
+            <div class="item-img-container">
+                <img
+                    src=".${data.image_path}"
+                    alt=""
+                    class="item-img"
+                />
+            </div>
+            <div class="item-description">
+              <a href="pages/shopping/product.php?id=${data.id}"><h3 class="item-name">${data.name}</h3></a>
+              <p class="item-price">SOLD OUT</p>
+            </div>
         </div>
-        <div class="item-description">
-          <a href="pages/shopping/product.php?id=${data.id}"><h3 class="item-name">${data.name}</h3></a>
-          <p class="item-price">RM${data.price}</p>
+        `;
+    } else {
+      itemList.innerHTML += `
+        <div class="item">
+            <div class="item-img-container">
+                <img
+                    src=".${data.image_path}"
+                    alt=""
+                    class="item-img"
+                />
+            </div>
+            <div class="item-description">
+              <a href="pages/shopping/product.php?id=${data.id}"><h3 class="item-name">${data.name}</h3></a>
+              <p class="item-price">RM${data.price}</p>
+            </div>
         </div>
-    </div>
-    `;
+        `;
+    }
   }
 }

@@ -51,11 +51,11 @@ if (isset($_GET['id'])) {
       </div>
       <div class="product-desc-container">
         <h1 class="product-name"><?php echo $product['name']?></h1>
-        <h3 class="product-price">RM<?php echo $product['price']?></h3>
+        <h3 class="product-price"><?= $product['stock'] === 0 ? "SOLD OUT" : "RM" . $product['price'] ?></h3>
         <p class="product-desc"><?php echo $product['description']?></p>
         <div class="action-container">
-          <button id="buy-now-btn" class="buy-btn">Buy Now</button>
-          <button id="add-to-cart-btn" class="add-cart-btn">Add to Cart</button>
+          <button id="buy-now-btn" class="buy-btn" <?= $product['stock'] === 0 ? "disabled" : "" ?>>Buy Now</button>
+          <button id="add-to-cart-btn" class="add-cart-btn" <?= $product['stock'] === 0 ? "disabled" : "" ?>>Add to Cart</button>
         </div>
         </div>
       </div>
@@ -81,6 +81,9 @@ if (isset($_GET['id'])) {
         </div>
       </div>
 
+      <script>
+        window.userIsLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+      </script>
       <script src="../../js/product.js"></script>
     </body>
 </html>
