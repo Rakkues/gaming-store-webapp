@@ -83,47 +83,83 @@ if (!empty($errors)) {
 }
 
 // ============================================================
-// 2. Validate Cart is Not Empty
-// ============================================================
-$cart = $_SESSION['cart'] ?? [];
-if (empty($cart)) {
-    echo json_encode(['success' => false, 'message' => 'Your cart is empty.']);
-    exit;
-}
-
-// ============================================================
-// 3. Re-validate Stock & Calculate Totals (server-side)
+// 2. Resolve Checkout Items
 // ============================================================
 $pdo = getDBConnection();
-$ids = implode(',', array_map('intval', array_keys($cart)));
-$stmt = $pdo->query("SELECT id, name, price, stock FROM products WHERE id IN ($ids)");
-$products = [];
-foreach ($stmt->fetchAll() as $row) {
-    $products[$row['id']] = $row;
-}
-
 $order_items = [];
 $subtotal    = 0.0;
+$checkout_mode = $_POST['checkout_mode'] ?? 'cart';
 
-foreach ($cart as $pid => $entry) {
-    $product = $products[$pid] ?? null;
+if ($checkout_mode === 'buy_now') {
+    $product_id = isset($_POST['product_id']) ? (int) $_POST['product_id'] : 0;
+    $quantity = isset($_POST['quantity']) ? (int) $_POST['quantity'] : 1;
+    $quantity = max(1, $quantity);
+
+    if ($product_id <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Invalid product.']);
+        exit;
+    }
+
+    $stmt = $pdo->prepare('SELECT id, name, price, stock FROM products WHERE id = ? LIMIT 1');
+    $stmt->execute([$product_id]);
+    $product = $stmt->fetch();
+
     if (!$product) {
-        $errors['stock'] = 'A product in your cart is no longer available.';
-        break;
+        echo json_encode(['success' => false, 'message' => 'Product is no longer available.']);
+        exit;
     }
-    if ($entry['quantity'] > $product['stock']) {
+
+    if ($quantity > (int) $product['stock']) {
         $errors['stock'] = htmlspecialchars($product['name']) . ' only has ' . $product['stock'] . ' unit(s) left.';
-        break;
+    } else {
+        $line_total = round((float) $product['price'] * $quantity, 2);
+        $subtotal += $line_total;
+        $order_items[] = [
+            'product_id'    => (int) $product['id'],
+            'product_name'  => $product['name'],
+            'product_price' => (float) $product['price'],
+            'quantity'      => $quantity,
+            'line_total'    => $line_total,
+        ];
     }
-    $line_total    = round((float) $product['price'] * $entry['quantity'], 2);
-    $subtotal     += $line_total;
-    $order_items[] = [
-        'product_id'    => (int) $pid,
-        'product_name'  => $product['name'],
-        'product_price' => (float) $product['price'],
-        'quantity'      => $entry['quantity'],
-        'line_total'    => $line_total,
-    ];
+} else {
+    $cart = $_SESSION['cart'] ?? [];
+    if (empty($cart)) {
+        echo json_encode(['success' => false, 'message' => 'Your cart is empty.']);
+        exit;
+    }
+
+    $ids = implode(',', array_map('intval', array_keys($cart)));
+    $stmt = $pdo->query("SELECT id, name, price, stock FROM products WHERE id IN ($ids)");
+    $products = [];
+    foreach ($stmt->fetchAll() as $row) {
+        $products[$row['id']] = $row;
+    }
+
+    foreach ($cart as $pid => $entry) {
+        $product = $products[$pid] ?? null;
+        if (!$product) {
+            $errors['stock'] = 'A product in your cart is no longer available.';
+            break;
+        }
+        if ($entry['quantity'] > $product['stock']) {
+            $errors['stock'] = htmlspecialchars($product['name']) . ' only has ' . $product['stock'] . ' unit(s) left.';
+            break;
+        }
+        $line_total    = round((float) $product['price'] * $entry['quantity'], 2);
+        $subtotal     += $line_total;
+        $order_items[] = [
+            'product_id'    => (int) $pid,
+            'product_name'  => $product['name'],
+            'product_price' => (float) $product['price'],
+            'quantity'      => $entry['quantity'],
+            'line_total'    => $line_total,
+        ];
+    }
+}
+
+if (empty($order_items) && empty($errors)) {
+    $errors['stock'] = 'No valid checkout items found.';
 }
 
 if (!empty($errors)) {
@@ -252,10 +288,13 @@ try {
 
     $pdo->commit();
 
-    // ✔ Success: store order ID in session, clear cart
+    // Success: store order ID in session. Cart checkout clears the cart;
+    // buy-now checkout leaves the cart unchanged.
     $_SESSION['last_order_id']     = $order_id;
     $_SESSION['last_order_number'] = $order_number;
-    $_SESSION['cart']              = [];
+    if ($checkout_mode !== 'buy_now') {
+        $_SESSION['cart'] = [];
+    }
 
     echo json_encode([
         'success'        => true,

@@ -20,6 +20,10 @@ const SHIPPING_FEES = {
 
 // Store subtotal globally for shipping calculations
 let currentSubtotal = 0;
+const checkoutParams = new URLSearchParams(window.location.search);
+const checkoutMode = checkoutParams.get('mode') === 'buy_now' ? 'buy_now' : 'cart';
+const buyNowProductId = checkoutParams.get('product_id') || '';
+const buyNowQuantity = checkoutParams.get('quantity') || '1';
 
 // ============================================================
 // DOM Ready
@@ -37,15 +41,24 @@ document.addEventListener('DOMContentLoaded', function () {
 // ============================================================
 async function loadOrderSummary() {
     try {
-        var response = await fetch(API_BASE + '/cart_get.php', {
+        var summaryUrl = API_BASE + '/cart_get.php';
+
+        if (checkoutMode === 'buy_now') {
+            summaryUrl = API_BASE + '/buy_now_get.php?product_id=' +
+                encodeURIComponent(buyNowProductId) +
+                '&quantity=' +
+                encodeURIComponent(buyNowQuantity);
+        }
+
+        var response = await fetch(summaryUrl, {
             method: 'GET',
             credentials: 'include'
         });
         var data = await response.json();
 
         if (!data.success || data.items.length === 0) {
-            alert('Your cart is empty. Redirecting to the shop...');
-            window.location.href = '../../index.html';
+            alert(data.message || 'No checkout item found. Redirecting to the shop...');
+            window.location.href = '../../index.php';
             return;
         }
 
@@ -404,6 +417,12 @@ async function handleSubmit(e) {
     formData.append('phone', document.getElementById('phone').value.trim());
     formData.append('shipping_method', document.querySelector('input[name="shipping_method"]:checked').value);
     formData.append('payment_method', document.querySelector('input[name="payment_method"]:checked').value);
+    formData.append('checkout_mode', checkoutMode);
+
+    if (checkoutMode === 'buy_now') {
+        formData.append('product_id', buyNowProductId);
+        formData.append('quantity', buyNowQuantity);
+    }
 
     // ---- Disable button & show loading ----
     var payBtn = document.getElementById('pay-btn');

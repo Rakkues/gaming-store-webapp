@@ -58,8 +58,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (buyNowBtn) {
     buyNowBtn.addEventListener("click", () => {
-      // Add to cart and redirect to checkout
-      addToCart("/gaming-store-webapp/public/pages/shopping/checkout.php");
+      if (!window.userIsLoggedIn) {
+        alert("You must be logged in to buy this product.");
+        window.location.href = "/gaming-store-webapp/public/pages/auth/login.php";
+        return;
+      }
+
+      if (!productId) {
+        alert("Invalid product.");
+        return;
+      }
+
+      window.location.href =
+        "/gaming-store-webapp/public/pages/shopping/checkout.php?mode=buy_now&product_id=" +
+        encodeURIComponent(productId) +
+        "&quantity=1";
     });
   }
 
