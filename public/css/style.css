@@ -184,3 +184,89 @@ a:visited {
   height: 100%;
   object-fit: cover;
 }
+
+.admin-page {
+  padding: 1.5rem;
+}
+
+.admin-filter-form {
+  align-items: end;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 180px 180px auto;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.admin-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.admin-filter-field label {
+  font-weight: bold;
+}
+
+.admin-filter-field input,
+.admin-filter-field select {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 0.65rem;
+}
+
+.admin-filter-actions {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.admin-filter-actions button {
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+}
+
+.admin-filter-actions a {
+  font-weight: bold;
+}
+
+.admin-table-wrap {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fafafa;
+  box-shadow: 0 1px 5px grey;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  background-color: black;
+  color: white;
+}
+
+.admin-product-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.admin-muted {
+  margin: 0.25rem 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
