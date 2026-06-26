@@ -291,6 +291,19 @@ a:visited {
   margin: 0.25rem 0;
 }
 
+.admin-primary-link {
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.75rem 1.25rem;
+}
+
+.admin-primary-link:visited {
+  color: white;
+}
+
 .admin-action-group {
   display: flex;
   gap: 0.5rem;

@@ -78,6 +78,9 @@ $products = $stmt->fetchAll();
     <main class="admin-page">
       <h1 class="featured-product-title">Inventory</h1>
       <p>View all products currently stored in the database.</p>
+      <p>
+        <a class="admin-primary-link" href="products/add_product.php">Add New Product</a>
+      </p>
 
       <?php if (!empty($_GET['success'])) : ?>
         <p class="admin-alert success"><?= htmlspecialchars($_GET['success']) ?></p>
@@ -170,8 +173,8 @@ $products = $stmt->fetchAll();
                 <td><?= htmlspecialchars($product['created_at']) ?></td>
                 <td>
                   <div class="admin-action-group">
-                    <a class="admin-action edit" href="edit_product.php?id=<?= urlencode((string) $product['id']) ?>">Edit</a>
-                    <form method="POST" action="delete_product.php" onsubmit="return confirm('Remove this product?');">
+                    <a class="admin-action edit" href="products/edit_product.php?id=<?= urlencode((string) $product['id']) ?>">Edit</a>
+                    <form method="POST" action="products/delete_product.php" onsubmit="return confirm('Remove this product?');">
                       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['admin_product_token']) ?>">
                       <input type="hidden" name="id" value="<?= htmlspecialchars((string) $product['id']) ?>">
                       <button class="admin-action danger" type="submit">Remove</button>

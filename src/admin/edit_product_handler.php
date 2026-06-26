@@ -18,7 +18,7 @@ $productId = isset($_GET['id']) ? (int) $_GET['id'] : (int) ($_POST['id'] ?? 0);
 $errors = [];
 
 if ($productId <= 0) {
-    header("Location: inventory.php?error=" . urlencode("Invalid product."));
+    header("Location: ../inventory.php?error=" . urlencode("Invalid product."));
     exit();
 }
 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $productId,
             ]);
 
-            header("Location: inventory.php?success=" . urlencode("Product updated."));
+            header("Location: ../inventory.php?success=" . urlencode("Product updated."));
             exit();
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
@@ -86,7 +86,7 @@ $stmt->execute([$productId]);
 $product = $stmt->fetch();
 
 if (!$product) {
-    header("Location: inventory.php?error=" . urlencode("Product not found."));
+    header("Location: ../inventory.php?error=" . urlencode("Product not found."));
     exit();
 }
 
