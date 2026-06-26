@@ -1,3 +1,10 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$isLoggedIn = !empty($_SESSION['logged_in']);
+?>
 <header>
   <div class="header-top">
     <div class="store-logo-container">
