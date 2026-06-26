@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } else {
 
-            $stmt = $pdo->prepare("SELECT userid, username, password FROM users WHERE email = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT userid, username, password, usertype FROM users WHERE email = ? LIMIT 1");
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
            
@@ -45,8 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_regenerate_id(true); 
                 $_SESSION['user_id']   = $user['userid'];
                 $_SESSION['username']  = $user['username'];
+                $_SESSION['usertype']  = $user['usertype'];
                 $_SESSION['logged_in'] = true;
-                header("Location: ../../index.php");
+
+                if ($user['usertype'] === 'admin') {
+                    header("Location: ../admin/admin.php");
+                } else {
+                    header("Location: ../../index.php");
+                }
                 exit;
 
             } else {

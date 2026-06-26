@@ -125,6 +125,12 @@ a:visited {
   color: white;
 }
 
+.admin-header-title {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+}
+
 /*header styling end*/
 
 a {
