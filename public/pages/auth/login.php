@@ -48,6 +48,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usertype']  = $user['usertype'];
                 $_SESSION['logged_in'] = true;
 
+                // Rebuild session cart from DB
+                $stmtLoad = $pdo->prepare("
+                    SELECT c.product_id, c.quantity, p.name, p.price, p.image_path 
+                    FROM cart_items c 
+                    JOIN products p ON c.product_id = p.id 
+                    WHERE c.user_id = ?
+                ");
+                $stmtLoad->execute([$user['userid']]);
+                $_SESSION['cart'] = [];
+                foreach ($stmtLoad->fetchAll() as $row) {
+                    $_SESSION['cart'][$row['product_id']] = [
+                        'product_id' => $row['product_id'],
+                        'name'       => $row['name'],
+                        'price'      => (float) $row['price'],
+                        'quantity'   => (int) $row['quantity'],
+                        'image_path' => $row['image_path'],
+                    ];
+                }
                 if ($user['usertype'] === 'admin') {
                     header("Location: ../admin/admin.php");
                 } else {

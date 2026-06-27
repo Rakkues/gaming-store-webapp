@@ -54,6 +54,18 @@ if ($action === 'remove') {
     }
 }
 
+// --- Sync to DB if logged in ---
+if (isset($_SESSION['user_id'])) {
+    $pdo = getDBConnection();
+    if (!isset($cart[$product_id])) {
+        $stmtSync = $pdo->prepare("DELETE FROM cart_items WHERE user_id = ? AND product_id = ?");
+        $stmtSync->execute([$_SESSION['user_id'], $product_id]);
+    } else {
+        $stmtSync = $pdo->prepare("UPDATE cart_items SET quantity = ? WHERE user_id = ? AND product_id = ?");
+        $stmtSync->execute([$cart[$product_id]['quantity'], $_SESSION['user_id'], $product_id]);
+    }
+}
+
 // Recalculate subtotal
 $subtotal = 0.0;
 foreach ($cart as $item) {
