@@ -40,6 +40,19 @@ CREATE TABLE IF NOT EXISTS products (
 ) ENGINE=InnoDB;
 
 -- ============================================================
+-- Cart Items Table
+-- ============================================================
+CREATE TABLE IF NOT EXISTS cart_items (
+    id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT UNSIGNED NOT NULL,
+    product_id  INT UNSIGNED NOT NULL,
+    quantity    INT UNSIGNED NOT NULL DEFAULT 1,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_cart_item (user_id, product_id),
+    CONSTRAINT fk_cart_user FOREIGN KEY (user_id) REFERENCES users(userid) ON DELETE CASCADE,
+    CONSTRAINT fk_cart_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+-- ============================================================
 -- Orders Table
 -- ============================================================
 CREATE TABLE IF NOT EXISTS orders (

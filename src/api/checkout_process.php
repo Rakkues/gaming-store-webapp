@@ -294,6 +294,10 @@ try {
     $_SESSION['last_order_number'] = $order_number;
     if ($checkout_mode !== 'buy_now') {
         $_SESSION['cart'] = [];
+        if (isset($_SESSION['user_id'])) {
+            $stmtClear = $pdo->prepare("DELETE FROM cart_items WHERE user_id = ?");
+            $stmtClear->execute([$_SESSION['user_id']]);
+        }
     }
 
     echo json_encode([

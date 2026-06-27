@@ -63,6 +63,21 @@ if (isset($cart[$product_id])) {
     ];
 }
 
+// --- Sync to DB if logged in ---
+if (isset($_SESSION['user_id'])) {
+    $stmtSync = $pdo->prepare("
+        INSERT INTO cart_items (user_id, product_id, quantity) 
+        VALUES (?, ?, ?) 
+        ON DUPLICATE KEY UPDATE quantity = ?
+    ");
+    $stmtSync->execute([
+        $_SESSION['user_id'], 
+        $product_id, 
+        $cart[$product_id]['quantity'],
+        $cart[$product_id]['quantity']
+    ]);
+}
+
 $cart_count = array_sum(array_column($cart, 'quantity'));
 
 echo json_encode([
