@@ -11,16 +11,16 @@ The project was built to fulfill Web Application Development project assignment 
 
 ## Setup
 1. Clone this repository onto your local machine.
-2. Copy the project file into the "htcdocs/" directory of your XAMPP files.
+2. Copy the project file into the "htdocs/" directory of your XAMPP files.
 3. In the PHPMyAdmin page, import "cashier_schema.sql" from the database directory into the MySQL database.
 4. Navigate to "localhost/gaming-store-webapp/public" to be taken to the home page.
 
 ## Default User Credentials
 For testing purposes, there are two user credentials pre-loaded that can be used:
 ### Customer
-Username: customer@testmail.com
-Password: 1234678
+- Username: customer@testmail.com
+- Password: 1234678
 
 ### Admin
-Username: admin@testmail.com
-Password: 1234678
+- Username: admin@testmail.com
+- Password: 1234678
