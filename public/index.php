@@ -16,7 +16,7 @@ $isLoggedIn = !empty($_SESSION['logged_in']);
     <div class="featured-banner-container">
       <h1 class="featured-product-title">Featured Product</h1>
       <img
-        src="./assets/product-images/product-1.webp"
+        src="./assets/product-images/featured-product.jpg"
         alt="Featured Product Banner"
         class="featured-product-banner"
       />
