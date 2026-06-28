@@ -8,7 +8,7 @@ $isLoggedIn = !empty($_SESSION['logged_in']);
 <header>
   <div class="header-top">
     <div class="store-logo-container">
-      <a href="https://localhost/gaming-store-webapp/public/">
+      <a href="/gaming-store-webapp/public/">
         <img src="/gaming-store-webapp/public/assets/store-logo.png" alt="store logo" />
       </a>
     </div>
