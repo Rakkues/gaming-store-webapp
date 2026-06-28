@@ -57,6 +57,7 @@ $query = "
         country,
         payment_method,
         total,
+        status,
         created_at
     FROM orders
 ";
@@ -130,6 +131,7 @@ $orders = $stmt->fetchAll();
               <th>Address</th>
               <th>Payment</th>
               <th>Total</th>
+              <th>Status</th>
               <th>Purchased Time</th>
             </tr>
           </thead>
@@ -165,6 +167,7 @@ $orders = $stmt->fetchAll();
                 <td><?= htmlspecialchars($fullAddress) ?></td>
                 <td><?= htmlspecialchars(ucwords(str_replace('_', ' ', $order['payment_method']))) ?></td>
                 <td>RM <?= htmlspecialchars(number_format((float) $order['total'], 2)) ?></td>
+                <td><?= htmlspecialchars(ucfirst($order['status'])) ?></td>
                 <td><?= htmlspecialchars($order['created_at']) ?></td>
               </tr>
             <?php endforeach; ?>
