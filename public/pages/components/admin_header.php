@@ -29,7 +29,7 @@ $adminName = $_SESSION['username'] ?? 'Admin';
           <a href="/gaming-store-webapp/public/pages/admin/inventory.php">Inventory</a>
         </li>
         <li class="header-link">
-          <a href="/gaming-store-webapp/public/pages/admin/order_history.php">Order History</a>
+          <a href="/gaming-store-webapp/public/pages/admin/orders/order_history.php">Order History</a>
         </li>
         <li class="header-link">
           <a href="/gaming-store-webapp/public/pages/admin/members.php">Members</a>

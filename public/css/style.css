@@ -197,6 +197,14 @@ a:visited {
   margin: 1rem 0;
 }
 
+.member-filter-form {
+  grid-template-columns: minmax(220px, 1fr) 180px auto;
+}
+
+.order-filter-form {
+  grid-template-columns: minmax(260px, 1fr) 180px auto;
+}
+
 .admin-filter-field {
   display: flex;
   flex-direction: column;
@@ -367,4 +375,17 @@ a:visited {
   color: white;
   cursor: pointer;
   padding: 0.75rem 1.25rem;
+}
+
+.admin-detail-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 0;
+}
+
+.admin-detail-grid section {
+  background-color: #fafafa;
+  box-shadow: 0 1px 5px grey;
+  padding: 1rem;
 }
