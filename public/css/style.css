@@ -189,6 +189,26 @@ a:visited {
   padding: 1.5rem;
 }
 
+.admin-dashboard-cards {
+  display: flex;
+  gap: 50px;
+  margin-top: 1.5rem;
+}
+
+.admin-dashboard-card {
+  color: black;
+}
+
+.admin-card-count {
+  align-items: center;
+  aspect-ratio: 1;
+  display: flex;
+  font-size: 3rem;
+  font-weight: bold;
+  justify-content: center;
+  width: 100%;
+}
+
 .admin-filter-form {
   align-items: end;
   display: grid;
